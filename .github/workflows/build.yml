@@ -23,6 +23,15 @@ jobs:
           echo "THEOS=/opt/theos" >> $GITHUB_ENV
           echo "THEOS_DEVICE_IP=127.0.0.1" >> $GITHUB_ENV
 
+      - name: Install iOS SDK
+        run: |
+          mkdir -p /opt/theos/sdks
+          cd /tmp
+          curl -L -o sdks.zip https://github.com/theos/sdks/archive/refs/heads/master.zip
+          unzip -q sdks.zip
+          cp -r sdks-master/*.sdk /opt/theos/sdks/ || true
+          ls /opt/theos/sdks/
+
       - name: Build package
         run: |
           make clean
