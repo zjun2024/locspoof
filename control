@@ -1,0 +1,9 @@
+Package: com.zjq.locspoof
+Name: LocationSpoof
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 进程内虚拟定位 - DingDing 打卡不触发虚拟定位检测，支持地图选坐标
+Maintainer: zjq
+Author: zjq
+Section: Tweaks
+Depends: mobilesubstrate

@@ -1,0 +1,35 @@
+name: Build Tweak
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev             libssl-dev ldid procps
+          sudo ln -sf /usr/bin/fakeroot-sysv /usr/local/bin/fakeroot || true
+
+      - name: Setup theos
+        run: |
+          git clone --recursive --depth 1 https://github.com/theos/theos /opt/theos
+          echo "THEOS=/opt/theos" >> $GITHUB_ENV
+          echo "THEOS_DEVICE_IP=127.0.0.1" >> $GITHUB_ENV
+
+      - name: Build package
+        run: |
+          make clean
+          make package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: locationSpoof-deb
+          path: packages/*.deb
