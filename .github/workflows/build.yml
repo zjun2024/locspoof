@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev             libssl-dev ldid procps
+          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev libssl-dev procps
           sudo ln -sf /usr/bin/fakeroot-sysv /usr/local/bin/fakeroot || true
 
       - name: Setup theos
