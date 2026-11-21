@@ -14,12 +14,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev libssl-dev procps clang llvm
+          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev libssl-dev procps clang
           sudo ln -sf /usr/bin/fakeroot-sysv /usr/local/bin/fakeroot || true
-          # theos 期望在 toolchain/linux/iphone/bin 找到 clang，用系统 clang 链接
-          sudo mkdir -p /opt/theos/toolchain/linux/iphone/bin
-          sudo ln -sf /usr/bin/clang   /opt/theos/toolchain/linux/iphone/bin/clang
-          sudo ln -sf /usr/bin/clang++ /opt/theos/toolchain/linux/iphone/bin/clang++
 
       - name: Setup theos
         run: |
@@ -27,6 +23,15 @@ jobs:
           git clone --recursive --depth 1 https://github.com/theos/theos /opt/theos
           echo "THEOS=/opt/theos" >> $GITHUB_ENV
           echo "THEOS_DEVICE_IP=127.0.0.1" >> $GITHUB_ENV
+
+      - name: Link clang for theos
+        run: |
+          CLANG_BIN=$(command -v clang || ls /usr/bin/clang-* 2>/dev/null | head -1)
+          echo "using clang: $CLANG_BIN"
+          sudo mkdir -p /opt/theos/toolchain/linux/iphone/bin
+          sudo ln -sf "$CLANG_BIN" /opt/theos/toolchain/linux/iphone/bin/clang
+          sudo ln -sf "$CLANG_BIN" /opt/theos/toolchain/linux/iphone/bin/clang++
+          ls -la /opt/theos/toolchain/linux/iphone/bin/
 
       - name: Install iOS SDK
         run: |
