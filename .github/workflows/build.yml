@@ -23,6 +23,7 @@ jobs:
 
       - name: Setup theos
         run: |
+          sudo rm -rf /opt/theos
           git clone --recursive --depth 1 https://github.com/theos/theos /opt/theos
           echo "THEOS=/opt/theos" >> $GITHUB_ENV
           echo "THEOS_DEVICE_IP=127.0.0.1" >> $GITHUB_ENV
