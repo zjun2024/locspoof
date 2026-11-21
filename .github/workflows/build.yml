@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev libssl-dev procps clang
+          sudo apt-get install -y git curl build-essential fakeroot dpkg-dev libssl-dev procps clang lld llvm
           sudo ln -sf /usr/bin/fakeroot-sysv /usr/local/bin/fakeroot || true
 
       - name: Setup theos
@@ -44,6 +44,17 @@ jobs:
 
       - name: Build package
         run: |
+          # 确保 theos 能调用 ld64.lld（LLVM 的 Mach-O 链接器）
+          sudo mkdir -p /opt/theos/toolchain/linux/iphone/bin
+          if [ ! -e /opt/theos/toolchain/linux/iphone/bin/ld64.lld ]; then
+            if command -v ld64.lld >/dev/null 2>&1; then
+              sudo ln -sf "$(command -v ld64.lld)" /opt/theos/toolchain/linux/iphone/bin/ld64.lld
+            else
+              # 用 lld 代替
+              sudo ln -sf "$(command -v lld)" /opt/theos/toolchain/linux/iphone/bin/ld64.lld
+            fi
+          fi
+          ls -la /opt/theos/toolchain/linux/iphone/bin/
           make clean
           make package
 
