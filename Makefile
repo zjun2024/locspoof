@@ -8,6 +8,7 @@ TWEAK_NAME = locationSpoof
 
 locationSpoof_FILES = Tweak.xm
 locationSpoof_CFLAGS = -fobjc-arc
+locationSpoof_LDFLAGS = -fuse-ld=lld
 locationSpoof_FRAMEWORKS = CoreLocation MapKit UIKit Foundation
 locationSpoof_LIBRARIES = substrate
 
