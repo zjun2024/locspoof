@@ -1,4 +1,4 @@
-﻿// Tweak.xm - 进程内虚拟定位 (核心 hook)
+// Tweak.xm - 进程内虚拟定位 (核心 hook)
 // 钉钉打卡不触发「虚拟定位检测」：进程内构造普通 CLLocation。
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
