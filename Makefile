@@ -1,6 +1,6 @@
 TARGET := iphone:clang:latest:15.0
 INSTALL_TARGET_PROCESSES = DingTalk
-ARCHS = arm64 arm64e
+ARCHS = arm64
 
 include $(THEOS)/makefiles/common.mk
 
