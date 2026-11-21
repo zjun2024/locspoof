@@ -11,8 +11,8 @@ static NSString *const kPrefLatitude  = @"Latitude";
 static NSString *const kPrefLongitude = @"Longitude";
 static NSString *const kPrefAltitude  = @"Altitude";
 
-static const double kDefaultLatitude  = 30.2590;
-static const double kDefaultLongitude = 120.1300;
+static const double kDefaultLatitude  = 23.301633;
+static const double kDefaultLongitude = 113.312764;
 static const double kDefaultAltitude  = 10.0;
 
 double SpoofPrefLatitude(void);
