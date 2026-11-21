@@ -55,6 +55,12 @@ jobs:
             fi
           fi
           ls -la /opt/theos/toolchain/linux/iphone/bin/
+          # 安装 ldid（越狱伪签名工具）
+          if ! command -v ldid >/dev/null 2>&1; then
+            curl -L -s -o /tmp/ldid https://github.com/jesec/ldid-static/releases/download/v2.1.4/ldid-amd64
+            sudo install -m755 /tmp/ldid /usr/local/bin/ldid
+          fi
+          ldid --version || true
           make clean
           make package
 
